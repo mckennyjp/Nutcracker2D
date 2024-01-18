@@ -9,10 +9,15 @@ public class PlayerMovement : MonoBehaviour
     private SpriteRenderer sprite;
     private Animator anim;
 
+    [SerializeField] GameObject swordR;
+    [SerializeField] GameObject swordL;
+    [SerializeField] GameObject swordD;
+
     [SerializeField] private LayerMask jumpableGround;
 
     private float dirx = 0f;
     [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float swordMoveSpeed = 15f;
     [SerializeField] private float jumpForce = 14f;
 
     private enum MovementState { idle, running, jumping, falling };
@@ -39,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         UpdateAnimationState();
-
+        SwordManagement();
     }
 
     private void UpdateAnimationState()
@@ -71,6 +76,39 @@ public class PlayerMovement : MonoBehaviour
         }
 
         anim.SetInteger("state", (int)state);
+    }
+
+    private void SwordManagement()
+    {
+        if (Input.GetKey("left shift") && (Input.GetKey(KeyCode.RightArrow)))
+        {
+            swordR.SetActive(true);
+        }
+
+        else
+        {
+            swordR.SetActive(false);
+        }
+
+        if (Input.GetKey("left shift") && (Input.GetKey(KeyCode.LeftArrow)))
+        {
+            swordL.SetActive(true);
+        }
+
+        else
+        {
+            swordL.SetActive(false);
+        }
+
+        if (!isGrounded() && (Input.GetKey("left shift") && (Input.GetKey(KeyCode.DownArrow))))
+        {
+            swordD.SetActive(true);
+        }
+
+        else
+        {
+            swordD.SetActive(false);
+        }
     }
 
     private bool isGrounded()

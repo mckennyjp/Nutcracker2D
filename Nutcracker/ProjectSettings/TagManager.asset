@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pineapple
   - Trap
+  - Enemy
   layers:
   - Default
   - TransparentFX
